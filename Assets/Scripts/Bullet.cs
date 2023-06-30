@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
             direction = 0;
             transform.rotation = Quaternion.Euler(0, 0, 90);
         }
-        Invoke("DestroyBullet", 5);
+        Invoke("DestroyBullet", 3);
     }
 
     // Update is called once per frame
@@ -34,11 +34,10 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.CompareTag("wall"))
-        //Destroy(gameObject);
+        if (collision.CompareTag("wall"))
+            Destroy(gameObject);
         if (collision.CompareTag("enemy"))
         {
-            //Debug.Log(1);
             if (!isPurple)
             {
                 collision.GetComponent<Enemy>().hp--;

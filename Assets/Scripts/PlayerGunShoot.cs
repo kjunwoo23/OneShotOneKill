@@ -13,7 +13,7 @@ public class PlayerGunShoot : MonoBehaviour
 
     public float purplePower;
 
-    Coroutine gunUsing;
+    bool gunUsing;
 
     // Start is called before the first frame update
     void Start()
@@ -25,21 +25,24 @@ public class PlayerGunShoot : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))
-            if (gunUsing == null)
+            if (!gunUsing)
                 if (shootCnt > 1)
-                    ShootNormalStart();
+                {
+                    gunUsing = true;
+                    StartCoroutine(ShootNormal());
+                }
                 else if (shootCnt > 0)
-                    ShootPurpleStart();
+                {
+                    gunUsing = true;
+                    StartCoroutine(ShootPurple());
+                }
         RefreshBulletUI();
     }
 
-    public void ShootNormalStart()
-    {
-        shootCnt--;
-        gunUsing = StartCoroutine(ShootNormal());
-    }
+
     IEnumerator ShootNormal()
     {
+        shootCnt--;
         Player.instance.animator.SetTrigger("shoot");
         Instantiate(bullet, gunShootPos.position, gunShootPos.rotation);
         EffectManager.instance.EffectSoundsPlay(0);
@@ -50,15 +53,12 @@ public class PlayerGunShoot : MonoBehaviour
 
         yield return new WaitForSeconds(0.7f);
 
-        gunUsing = null;
+        gunUsing = false;
     }
-    public void ShootPurpleStart()
-    {
-        shootCnt--;
-        gunUsing = StartCoroutine(ShootPurple());
-    }
+
     IEnumerator ShootPurple()
     {
+        shootCnt--;
         Player.instance.animator.SetTrigger("shoot");
 
         if (Input.GetKey(KeyCode.DownArrow))
@@ -78,7 +78,7 @@ public class PlayerGunShoot : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         Reload();
-        gunUsing = null;
+        gunUsing = false;
     }
     public void Reload()
     {
