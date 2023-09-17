@@ -29,9 +29,7 @@ public class EffectManager : MonoBehaviour
             effectSounds[i].source = gameObject.AddComponent<AudioSource>();
             effectSounds[i].source.clip = effectSounds[i].clip;
             effectSounds[i].source.loop = false;
-
-            //if (i == 0 || i == 1 || i == 2)
-                //effectSounds[i].source.volume = 0.5f;
+            effectSounds[i].source.volume = 0.5f;
         }
     }
 

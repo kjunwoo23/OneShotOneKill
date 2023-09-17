@@ -36,8 +36,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y < -30) StartCoroutine(LoadManager.instance.GameOver());
         isGround = Physics2D.OverlapCircle(pos.position, checkRadius, islayer) || Physics2D.OverlapCircle(pos2.position, checkRadius, islayer);
-        if (isGround || myRigid.velocity.y == 0) jumpChance = maxJumpChance;
+        if (isGround && myRigid.velocity.y == 0) jumpChance = maxJumpChance;
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpChance > 0)
         {
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        myRigid.velocity = new Vector2(0, jumpPower);
+        myRigid.velocity = new Vector2(myRigid.velocity.x, jumpPower);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -77,6 +78,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy")) 
             StartCoroutine(LoadManager.instance.GameOver());
             //게임오버
+        if (collision.gameObject.CompareTag("bulb"))
+            if (EventManager.instance.bossCleared)
+            {
+                StartCoroutine(EventManager.instance.GameClear());
+            }
     }
 
 }

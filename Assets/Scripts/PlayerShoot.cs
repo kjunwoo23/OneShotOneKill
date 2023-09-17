@@ -26,6 +26,7 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Player.instance.enabled) enabled = false;
         if (Input.GetKeyDown(KeyCode.Z))
             if (gunUsing == null)
             {
@@ -43,7 +44,9 @@ public class PlayerShoot : MonoBehaviour
         bulletCnt--;
         Instantiate(yellowBullet, bulletPos.position, bulletPos.rotation);
         EffectManager.instance.EffectSoundsPlay(0);
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(0.7f);
+        EffectManager.instance.EffectSoundsPlay(3);
+        yield return new WaitForSeconds(0.7f);
         gunUsing = null;
     }
     public IEnumerator PurpleBullet()
@@ -58,7 +61,9 @@ public class PlayerShoot : MonoBehaviour
         else
             Player.instance.myRigid.velocity = new Vector3(15 * direction, 0, 0);
         EffectManager.instance.EffectSoundsPlay(1);
-        yield return new WaitForSeconds(1.4f);
+        yield return new WaitForSeconds(0.7f);
+        EffectManager.instance.EffectSoundsPlay(3);
+        yield return new WaitForSeconds(0.7f);
         bulletCnt = maxBulletCnt;
         gunUsing = null;
     }

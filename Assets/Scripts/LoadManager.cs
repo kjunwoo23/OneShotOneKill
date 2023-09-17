@@ -20,7 +20,7 @@ public class LoadManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("continue")){
             if (PlayerPrefs.GetInt("continue") == 0)
-                ; //처음부터
+                Player.instance.transform.position = spawnPoints[0].position; //처음부터
             else
             {
                 //이어서
@@ -44,6 +44,7 @@ public class LoadManager : MonoBehaviour
     public IEnumerator GameOver()
     {
         Player.instance.enabled = false;
+        SoundManager.instance.ChangeBGM(3);
         yield return new WaitForSeconds(1f);
 
         fade.color = new Color(0, 0, 0, 1);

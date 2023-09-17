@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SavePoint : MonoBehaviour
+public class BossSpawn : MonoBehaviour
 {
-    public int saveNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +20,7 @@ public class SavePoint : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerPrefs.SetInt("saved", saveNum);
-            PlayerPrefs.SetInt("continue", 1);
+            EventManager.instance.SpawnBoss();
         }
     }
 }
