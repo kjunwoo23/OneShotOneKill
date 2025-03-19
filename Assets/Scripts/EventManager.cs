@@ -29,6 +29,7 @@ public class EventManager : MonoBehaviour
 
     public void SpawnBoss()
     {
+        EffectManager.instance.effectSounds[4].source.Play();
         SoundManager.instance.ChangeBGM(1);
         bossSpawn.SetActive(false);
         boss.SetActive(true);

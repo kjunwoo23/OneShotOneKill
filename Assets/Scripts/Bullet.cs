@@ -38,8 +38,8 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.CompareTag("wall"))
-        //Destroy(gameObject);
+        if (collision.CompareTag("wall"))
+            Destroy(gameObject);
         if (collision.CompareTag("enemy"))
         {
             //Debug.Log(1);
@@ -57,6 +57,7 @@ public class Bullet : MonoBehaviour
 
         }
     }
+
 
     IEnumerator DestroyCor()
     {

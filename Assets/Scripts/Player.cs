@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     {
         if (transform.position.y < -30) StartCoroutine(LoadManager.instance.GameOver());
         isGround = Physics2D.OverlapCircle(pos.position, checkRadius, islayer) || Physics2D.OverlapCircle(pos2.position, checkRadius, islayer);
-        if (isGround && myRigid.velocity.y == 0) jumpChance = maxJumpChance;
+        if (isGround && myRigid.velocity.y < 0.01f) jumpChance = maxJumpChance;
 
         if (Input.GetKeyDown(KeyCode.Space) && jumpChance > 0)
         {
